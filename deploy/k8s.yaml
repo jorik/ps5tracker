@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ps5tracker
+  labels:
+    app: ps5tracker
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: ps5tracker
+      labels:
+        app: ps5tracker
+    spec:
+      volumes:
+        - name: ps5tracker-config
+          configMap:
+            name: ps5tracker-config
+      containers:
+        - name: ps5tracker
+          image: jorik/ps5tracker:0.0.2
+          imagePullPolicy: IfNotPresent
+          args:
+            - --loglevel
+            - debug
+            - --telegramChatId
+            - <TELEGRAM_CHAT_ID>
+            - --telegramBotToken
+            - <TELEGRAM_BOT_TOKEN>
+          volumeMounts:
+            - mountPath: /app/tests.yaml
+              name: ps5tracker-config
+              subPath: tests.yaml
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: ps5tracker
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ps5tracker-config
+data:
+  tests.yaml: |
+    websites:
+    - url: https://www.bol.com/nl/p/sony-playstation-5-console/9300000004162282/?promo=home_818_recentbekeken-MCM-slot_D99_product_2_&bltgh=mLmiFmCCvt9Pi5w71EtGBQ.59_0_1.4.ProductImage
+      keywords:
+      - Op voorraad
+      - In winkelwagen
+    - url: https://www.bol.com/nl/p/sony-playstation-5-digital-edition-console/9300000004162392/?bltgh=h5tII-RqPI5oDeY5RDtPVw.1.2.ProductImage
+      keywords:
+      - Op voorraad
+      - In winkelwagen
+    - url: https://www.bcc.nl/computer/gaming/playstation-5-console
+      keywords_not_appearing:
+      - 0 producten
+      keywords:
+      - Sorteer op
+      - In winkelwagen
+
+
