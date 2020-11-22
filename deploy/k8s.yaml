@@ -21,8 +21,6 @@ spec:
           image: jorik/ps5tracker:0.0.4
           imagePullPolicy: IfNotPresent
           args:
-            - --loglevel
-            - info
             - --telegramChatId
             - <TELEGRAM_CHAT_ID>
             - --telegramBotToken
