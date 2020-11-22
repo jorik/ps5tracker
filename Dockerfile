@@ -7,7 +7,7 @@ WORKDIR /build/cmd/tracker
 
 RUN CGO_ENABLED=0 go build -mod vendor -a -installsuffix cgo -o /build/tracker
 
-FROM alpine:3.11 as release
+FROM alpine:3.12 as release
 
 WORKDIR /app/
 

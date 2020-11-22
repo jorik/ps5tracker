@@ -18,7 +18,7 @@ spec:
             name: ps5tracker-config
       containers:
         - name: ps5tracker
-          image: jorik/ps5tracker:0.0.4
+          image: jorik/ps5tracker:0.0.5
           imagePullPolicy: IfNotPresent
           args:
             - --telegramChatId
