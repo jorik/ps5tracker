@@ -19,7 +19,10 @@ type telegramSink struct {
 
 func (t telegramSink) Send(message string) error {
 	msg := tgbotapi.NewMessage(t.chatID, message)
+	msg.DisableWebPagePreview = true
+
 	_, err := t.botAPI.Send(msg)
+
 	return err
 }
 

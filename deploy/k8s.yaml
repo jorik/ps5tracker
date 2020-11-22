@@ -18,11 +18,11 @@ spec:
             name: ps5tracker-config
       containers:
         - name: ps5tracker
-          image: jorik/ps5tracker:0.0.2
+          image: jorik/ps5tracker:0.0.4
           imagePullPolicy: IfNotPresent
           args:
             - --loglevel
-            - debug
+            - info
             - --telegramChatId
             - <TELEGRAM_CHAT_ID>
             - --telegramBotToken
@@ -44,19 +44,40 @@ metadata:
 data:
   tests.yaml: |
     websites:
-    - url: https://www.bol.com/nl/p/sony-playstation-5-console/9300000004162282/?promo=home_818_recentbekeken-MCM-slot_D99_product_2_&bltgh=mLmiFmCCvt9Pi5w71EtGBQ.59_0_1.4.ProductImage
-      keywords:
-      - Op voorraad
-      - In winkelwagen
-    - url: https://www.bol.com/nl/p/sony-playstation-5-digital-edition-console/9300000004162392/?bltgh=h5tII-RqPI5oDeY5RDtPVw.1.2.ProductImage
-      keywords:
-      - Op voorraad
-      - In winkelwagen
-    - url: https://www.bcc.nl/computer/gaming/playstation-5-console
-      keywords_not_appearing:
-      - 0 producten
-      keywords:
-      - Sorteer op
-      - In winkelwagen
-
-
+      - url: https://www.bol.com/nl/p/sony-playstation-5-digital-edition-console/9300000004162392/
+        keywords:
+          - Op voorraad
+          - In winkelwagen
+      - url: https://www.bol.com/nl/p/sony-playstation-5-console/9300000004162282/
+        keywords:
+          - Op voorraad
+          - In winkelwagen
+      - url: https://www.bcc.nl/computer/gaming/playstation-5-console
+        keywords_not_appearing:
+          - 0 producten
+        keywords:
+          - Sorteer op
+      - url: https://www.amazon.nl/Sony-PlayStation-PlayStation%C2%AE5-Console/dp/B08H93ZRK9
+        keywords:
+          - In winkelwagen
+      - url: https://www.amazon.nl/Sony-PlayStation-PlayStation%C2%AE5-Digital-Edition/dp/B08H98GVK8
+        keywords:
+          - In winkelwagen
+      - url: https://www.coolblue.nl/product/865866/playstation-5.html
+        keywords:
+          - In mijn winkelwagen
+      - url: https://www.gamemania.nl/Consoles/playstation-5/144093_playstation-5-disc-edition
+        keywords_not_appearing:
+          - Niet beschikbaar
+      - url: https://www.gamemania.nl/Consoles/playstation-5/144093_playstation-5-disc-edition
+        keywords_not_appearing:
+          - Niet beschikbaar
+      - url: https://www.intertoys.nl/shop/nl/intertoys/ps5-825gb
+        keywords_not_appearing:
+          - uitverkocht
+      - url: https://www.intertoys.nl/shop/nl/intertoys/ps5-digital-edition-825gb
+        keywords_not_appearing:
+          - uitverkocht
+      - url: https://www.wehkamp.nl/games-consoles/?soort-artikel=console
+        keywords:
+          - Playstation 5

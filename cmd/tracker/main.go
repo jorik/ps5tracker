@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 
@@ -14,8 +15,7 @@ import (
 var (
 	configFile       = flag.String("configFile", "./tests.yaml", "Config file")
 	telegramChatID   = flag.Int64("telegramChatId", -1, "")
-	telegramBotToken = flag.String("telegramBotToken", "", "")
-	debug            = flag.Bool("debug", false, "Whether to only output to stdout")
+	telegramBotToken = flag.String("telegramBotToken", "", "Leave empty to output to STDOUT")
 	logLevel         = flag.String("loglevel", "info", "Log level: [debug, info, warning]")
 )
 
@@ -26,9 +26,6 @@ func main() {
 	logrus.Infof("Setting log level to: %s", lvl)
 	logrus.SetLevel(lvl)
 
-	if *debug {
-		logrus.Infof("Running debug mode")
-	}
 	c, err := ioutil.ReadFile(*configFile)
 	if err != nil {
 		log.Printf("Unable to read config file contents: %v\n", err)
@@ -46,24 +43,26 @@ func main() {
 		go internal.StartScrape(c, done, results)
 	}
 
-	var sinks []internal.ReportSink
+	var sink internal.ReportSink
 
-	if *debug || *telegramBotToken == "" {
-		sink := internal.NewPrintSink()
-		sinks = append(sinks, sink)
+	if *telegramBotToken == "" {
+		sink = internal.NewPrintSink()
 	} else {
-		telegramSink, err := internal.NewTelegramSink(*telegramBotToken, *telegramChatID)
+		sink, err = internal.NewTelegramSink(*telegramBotToken, *telegramChatID)
 		if err != nil {
 			logrus.Fatalf("Could not create Telegram Sink: %v", err)
 		}
-		sinks = append(sinks, telegramSink)
 	}
 
+	startupMessage := fmt.Sprintf("🎮🕵🏻 Starting PS5 Tracker with %d tracked websites:", len(config.Websites))
+	for _, c := range config.Websites {
+		startupMessage += fmt.Sprintf("\n - %s", c.Url)
+	}
+	_ = sink.Send(startupMessage)
+
 	for res := range results {
-		for _, sink := range sinks {
-			if err := sink.Send(res); err != nil {
-				logrus.Errorf("Could not send message to sink: %v", err)
-			}
+		if err := sink.Send(res); err != nil {
+			logrus.Errorf("Could not send message to sink: %v", err)
 		}
 	}
 }
