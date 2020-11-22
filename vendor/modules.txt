@@ -1,3 +1,6 @@
+# github.com/corpix/uarand v0.1.1
+## explicit
+github.com/corpix/uarand
 # github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 ## explicit
 github.com/go-telegram-bot-api/telegram-bot-api

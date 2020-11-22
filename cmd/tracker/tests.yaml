@@ -1,14 +1,4 @@
 websites:
-- url: https://www.bol.com/nl/p/marvel-s-spider-man-miles-morales-ps5/9300000004210968/?s2a=#productTitle
-  keywords:
-  - Op voorraad
-  - In winkelwagen
-- url: https://www.bol.com/nl/p/sony-playstation-5-digital-edition-console/9300000004162392/?bltgh=h5tII-RqPI5oDeY5RDtPVw.1.2.ProductImage
-  keywords:
-  - Op voorraad
-  - In winkelwagen
-- url: https://www.bcc.nl/computer/gaming/playstation-5-console
-  keywords_not_appearing:
-    - 0 producten
-  keywords:
-    - Sorteer op
+  - url: https://www.amazon.nl/Sony-PlayStation-PlayStation%C2%AE5-Console/dp/B08H93ZRK9
+    keywords:
+      - In winkelwagen
